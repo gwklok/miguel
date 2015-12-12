@@ -14,7 +14,7 @@ from progressive.bar import Bar
 from progressive.tree import ProgressTree, Value, BarDescriptor
 
 
-MAGDIR = os.path.expanduser("~/.magellan_repl")
+MAGDIR = os.path.expanduser("~/.magellan_miguel")
 if not os.path.exists(MAGDIR):
     print("Creating directory {}...".format(MAGDIR))
     os.mkdir(MAGDIR)
@@ -25,7 +25,7 @@ if not os.path.exists(HISTFILE):
         f.write("")
 
 
-class MagellanRepl(Cmd):
+class Miguel(Cmd):
 
     HTTP_VERBS = ["GET", "PUT", "POST", "PATCH", "DELETE"]
 
@@ -148,7 +148,7 @@ class MagellanRepl(Cmd):
 @click.command()
 @click.option("-b", "--base-url", type=click.STRING, required=True)
 def main(base_url):
-    repl = MagellanRepl(base_url)
+    repl = Miguel(base_url)
     while True:
         try:
             repl.cmdloop()
