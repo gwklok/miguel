@@ -1,0 +1,5 @@
+requests
+click
+blessings
+progressive>=0.3.3
+gnureadline
