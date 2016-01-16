@@ -14,10 +14,10 @@ from progressive.bar import Bar
 from progressive.tree import ProgressTree, Value, BarDescriptor
 
 
-MAGDIR = os.path.expanduser("~/.magellan_miguel")
+MAGDIR = os.path.expanduser("~/.magellan/miguel")
 if not os.path.exists(MAGDIR):
     print("Creating directory {}...".format(MAGDIR))
-    os.mkdir(MAGDIR)
+    os.makedirs(MAGDIR)
 HISTFILE = os.path.join(MAGDIR, "history")
 if not os.path.exists(HISTFILE):
     print("Creating {} file...".format(HISTFILE))
