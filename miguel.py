@@ -14,6 +14,8 @@ from progressive.bar import Bar
 from progressive.tree import ProgressTree, Value, BarDescriptor
 
 
+__version__ = "0.1.0"
+
 MAGDIR = os.path.expanduser("~/.magellan/miguel")
 if not os.path.exists(MAGDIR):
     print("Creating directory {}...".format(MAGDIR))
