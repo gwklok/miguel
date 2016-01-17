@@ -3,8 +3,6 @@ import codecs
 
 from setuptools import setup
 
-import miguel
-
 
 def read(filename):
     """Read and return `filename` in root dir of project and return string"""
@@ -18,7 +16,7 @@ long_description = read('README.md')
 
 setup(
     name="miguel",
-    version=miguel.__version__,
+    version="0.1.0",
     url='https://github.com/mesos-magellan/miguel',
     license='MIT License',
     author='Hamza Faran',

@@ -14,7 +14,8 @@ from progressive.bar import Bar
 from progressive.tree import ProgressTree, Value, BarDescriptor
 
 
-__version__ = "0.1.0"
+# __version__ = "TODO Refactor this so that setup.py can import miguel and
+# get version"
 
 MAGDIR = os.path.expanduser("~/.magellan/miguel")
 if not os.path.exists(MAGDIR):
