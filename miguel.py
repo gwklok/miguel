@@ -38,8 +38,9 @@ class Miguel(Cmd):
         self.base_url = base_url
         self.base_api_url = os.path.join(self.base_url, "api")
         self._make_commands()
-        self.prompt = "{t.green}magellan_repl@{base_url}{t.blue}\n$ " \
-                      "{t.normal}".format(base_url=base_url, t=self.t)
+        self.prompt = "{}\n$ ".format(
+            self.t.green("magellan_repl@{}".format(base_url))
+        )
         readline.read_history_file(HISTFILE)
 
     def _progress_loop(self, request_method, url, body):
