@@ -44,22 +44,14 @@ class Miguel(Cmd):
         readline.read_history_file(HISTFILE)
 
     def _progress_loop(self, request_method, url, body):
-        bar = Bar(max_value=100, title="Completed Tasks",
-                  num_rep="percentage", filled_color=2)
-        sent_bar = Bar(max_value=100, title="Sent      Tasks",
-                       num_rep="percentage", filled_color=4)
-
         response = request_method(url, data=json.dumps(body))
         body = response.json()
 
-        bd_defaults = dict(
-            type=Bar,
-            kwargs=dict(max_value=100, title_pos="left",
-                        num_rep="percentage", filled_color=1)
-        )
-        d = {}
-        for task_id, progress in body["task_progress"].items():
-            d[task_id] = BarDescriptor(value=Value(progress), **bd_defaults)
+        max_tasks = body["num_total_tasks"]
+
+        bar = Bar(max_value=max_tasks, title="Completed Tasks",
+                  num_rep="percentage", filled_color=2)
+
         n = ProgressTree(term=self.t)
         n.cursor.clear_lines(self.t.height - 1)
 
@@ -70,24 +62,17 @@ class Miguel(Cmd):
             n.cursor.restore()
             n.cursor.clear_lines(self.t.height - 1)
             n.cursor.save()
-            bar.draw(value=response.json()["progress"])
-            sent_bar.draw(value=response.json()["sent_progress"])
+            bar.draw(value=body["num_finished_tasks"])
 
-            d = {"Active    Tasks": {}}
-            for task_id, progress in body["task_progress"].items():
-                d["Active    Tasks"][task_id] = BarDescriptor(value=Value(progress), **bd_defaults)
-            if d["Active    Tasks"]:
-                if n.lines_required(d) >= self.t.height - 2:
-                    pass
-                else:
-                    n.make_room(d)
-                    n.draw(d, BarDescriptor(bd_defaults),
-                           save_cursor=False)
+            presp = body
+            presp["energy_history"] = sorted(presp["energy_history"])[:10]
+            del presp["best_location"]
+            print(json.dumps(presp, indent=4))
 
             if response.status_code == 200:
                 return response
 
-            sleep(0.5)
+            sleep(2.0)
 
     def _parse_value(self, value):
         transform_map = {
